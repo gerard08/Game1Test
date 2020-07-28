@@ -29,6 +29,10 @@ void AMyCharacter::BeginPlay()
 	Gun->SetOwner(this);
 
 	Health = MaxHealth;
+
+	AActor* myActor = GetOwner();
+	if (myActor)myActor->SetActorEnableCollision(false);
+	else UE_LOG(LogTemp, Warning, TEXT("FUCK"));	
 }
 
 // Called every frame

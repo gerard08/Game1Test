@@ -49,7 +49,7 @@ void UPlatformColor::checkColor(FString color)
 			//canviem el material a transparent
 			myStaticMesh->SetMaterial(0, Trans);
 			//desactivem colisions
-			GetOwner()->SetActorEnableCollision(false);
+			//GetOwner()->SetActorEnableCollision(false);
 		}
 		//sino
 		else
@@ -57,7 +57,7 @@ void UPlatformColor::checkColor(FString color)
 			//posem el material no transparent
 			myStaticMesh->SetMaterial(0, NonTrans);
 			//Activem colisions
-			GetOwner()->SetActorEnableCollision(true);
+			//GetOwner()->SetActorEnableCollision(true);
 		}
 	}
 	else UE_LOG(LogTemp, Warning, TEXT("FUCK THE NULL PoINTER"))
