@@ -39,6 +39,9 @@ private:
 	//Material Transparent
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
 	class UMaterial* Trans;
+
+	//Primitive component
+	UPrimitiveComponent* Primitive = nullptr;
 };
 		
 
