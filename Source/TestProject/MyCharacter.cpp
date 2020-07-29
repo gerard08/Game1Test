@@ -1,6 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "MyCharacter.h"
+#include "Components/PrimitiveComponent.h"
 #include "PlatformColor.h"
 #include "Gun.h"
 
@@ -18,8 +19,19 @@ void AMyCharacter::BeginPlay()
 {
 	Super::BeginPlay();
 	//inicialitzo color
-	InicialitzaColor();
+	InicialitzaColor();		
 
+	TArray<UPrimitiveComponent*> Comp;
+	GetComponents<UPrimitiveComponent>(Comp);
+	
+	Primitive = Comp[0];
+
+	if (Primitive)
+	{
+		Primitive->SetCollisionObjectType(ECC_GameTraceChannel7);
+		UE_LOG(LogTemp, Warning, TEXT("TOMA BEGIN"));
+	}
+	else UE_LOG(LogTemp, Warning, TEXT("NO"));
 	//spawnejem una arma
 	Gun = GetWorld()->SpawnActor<AGun>(GunClass);
 	//Amaguem l'os de l'arma que ens ve amb el nostre mesh per poder acoplar la nostra que acabem de spawnejar
@@ -151,11 +163,20 @@ void AMyCharacter::CanviaColor()
 		//Si s'ha creat correctament, agafem el paràmetre _BodyColor i el posem al color blanc
 		matInstance->SetVectorParameterValue("_BodyColor", Colors[iColorActual]);
 		//UE_LOG(LogTemp, Warning, TEXT("Canvi %s"), *ColorActual);
+		//Aplico el material a tots els "materials" que tingui el nostre mesh
 		for (int i = 0; i < nMaterials + 1; i++)
 		{
 			//Apliquem aquest material creat al nostre mesh
 			GetMesh()->SetMaterial(i, matInstance);
 		}
+		
+		if (Primitive)
+		{
+			Primitive->SetCollisionObjectType(TradueixColor());
+			UE_LOG(LogTemp, Warning, TEXT("TOMA"));
+		}
+		else UE_LOG(LogTemp, Warning, TEXT("NO"));
+
 	}
 
 	for (TObjectIterator<UPlatformColor> Itr; Itr; ++Itr)
@@ -188,4 +209,16 @@ void AMyCharacter::InicialitzaColor()
 			GetMesh()->SetMaterial(i, matInstance);
 		}
 	}
+}
+
+ECollisionChannel AMyCharacter::TradueixColor()
+{
+
+	if (ColorActual == "Verd") return ECC_GameTraceChannel2;
+	if (ColorActual == "Taronja") return ECC_GameTraceChannel3;
+	if (ColorActual == "Turquesa") return ECC_GameTraceChannel4;
+	if (ColorActual == "Rosa") return ECC_GameTraceChannel5;
+	if (ColorActual == "Lila") return ECC_GameTraceChannel6;
+
+	return ECollisionChannel();
 }

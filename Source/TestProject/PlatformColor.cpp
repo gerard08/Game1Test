@@ -60,7 +60,7 @@ void UPlatformColor::checkColor(FString color)
 			//GetOwner()->SetActorEnableCollision(true);
 		}
 	}
-	else UE_LOG(LogTemp, Warning, TEXT("FUCK THE NULL PoINTER"))
+	//else UE_LOG(LogTemp, Warning, TEXT("FUCK THE NULL PoINTER"))
 }
 
 
