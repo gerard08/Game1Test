@@ -1,6 +1,6 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-
+#include "Components/PrimitiveComponent.h"
 #include "PlatformColor.h"
 
 // Sets default values for this component's properties
@@ -35,6 +35,14 @@ void UPlatformColor::BeginPlay()
 		myStaticMesh->SetMaterial(0, NonTrans);
 	}
 	else UE_LOG(LogTemp, Warning, TEXT("Our Actor have no Static mesh"));
+
+	TArray<UPrimitiveComponent*> Comp;
+	GetOwner()->GetComponents<UPrimitiveComponent>(Comp);
+
+	Primitive = Comp[0];
+
+	Primitive->SetCollisionResponseToChannel(ECC_Vehicle, ECollisionResponse::ECR_Block);
+	Primitive->SetCollisionResponseToChannel(ECC_Pawn, ECollisionResponse::ECR_Block);
 }
 
 
@@ -49,7 +57,9 @@ void UPlatformColor::checkColor(FString color)
 			//canviem el material a transparent
 			myStaticMesh->SetMaterial(0, Trans);
 			//desactivem colisions
-			GetOwner()->SetActorEnableCollision(false);
+			Primitive->SetCollisionResponseToChannel(ECC_Vehicle, ECollisionResponse::ECR_Ignore);
+			Primitive->SetCollisionResponseToChannel(ECC_Pawn, ECollisionResponse::ECR_Ignore);
+			
 		}
 		//sino
 		else
@@ -57,10 +67,11 @@ void UPlatformColor::checkColor(FString color)
 			//posem el material no transparent
 			myStaticMesh->SetMaterial(0, NonTrans);
 			//Activem colisions
-			GetOwner()->SetActorEnableCollision(true);
+			Primitive->SetCollisionResponseToChannel(ECC_Vehicle, ECollisionResponse::ECR_Block);
+			Primitive->SetCollisionResponseToChannel(ECC_Pawn, ECollisionResponse::ECR_Block);
 		}
 	}
-	else UE_LOG(LogTemp, Warning, TEXT("FUCK THE NULL PoINTER"))
+	//else UE_LOG(LogTemp, Warning, TEXT("FUCK THE NULL PoINTER"))
 }
 
 

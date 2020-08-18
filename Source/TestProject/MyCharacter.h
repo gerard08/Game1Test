@@ -81,6 +81,11 @@ private:
 	//funcio per posar el color inicial
 	void InicialitzaColor();
 
+	//Canvi color per collision channel
+	ECollisionChannel TradueixColor();
+
+	//Primitive component
+	UPrimitiveComponent* Primitive = nullptr;
 
 	////////////////MOVIMENT///////////////////
 
