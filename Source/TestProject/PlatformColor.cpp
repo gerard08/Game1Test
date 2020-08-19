@@ -56,9 +56,6 @@ void UPlatformColor::checkColor(FString color)
 		{
 			//canviem el material a transparent
 			myStaticMesh->SetMaterial(0, Trans);
-			//desactivem colisions
-			Primitive->SetCollisionResponseToChannel(ECC_Vehicle, ECollisionResponse::ECR_Ignore);
-			Primitive->SetCollisionResponseToChannel(ECC_Pawn, ECollisionResponse::ECR_Ignore);
 			
 		}
 		//sino
@@ -66,12 +63,39 @@ void UPlatformColor::checkColor(FString color)
 		{
 			//posem el material no transparent
 			myStaticMesh->SetMaterial(0, NonTrans);
-			//Activem colisions
-			Primitive->SetCollisionResponseToChannel(ECC_Vehicle, ECollisionResponse::ECR_Block);
-			Primitive->SetCollisionResponseToChannel(ECC_Pawn, ECollisionResponse::ECR_Block);
 		}
 	}
 	//else UE_LOG(LogTemp, Warning, TEXT("FUCK THE NULL PoINTER"))
 }
 
+void UPlatformColor::IA_checkColor(FString color)
+{
+	//Si tenim mesh
+	if (myStaticMesh)
+	{
+		//Si el color que ens passa el personatge és el mateix que el nostre
+		if (color == myColor)
+		{
+			//desactivem colisions
+			Primitive->SetCollisionResponseToChannel(ECC_Vehicle, ECollisionResponse::ECR_Ignore);
+			Primitive->SetCollisionResponseToChannel(ECC_Pawn, ECollisionResponse::ECR_Ignore);
+			//permetem visibilitat
+			Primitive->SetCollisionResponseToChannel(ECC_Camera, ECollisionResponse::ECR_Ignore);
+			Primitive->SetCollisionResponseToChannel(ECC_Visibility, ECollisionResponse::ECR_Ignore);
+			Primitive->SetCollisionResponseToChannel(ECC_GameTraceChannel1, ECollisionResponse::ECR_Ignore);
+			//visibility, camera and bullets
+		}
+		//sino
+		else
+		{
+			//Activem colisions
+			Primitive->SetCollisionResponseToChannel(ECC_Vehicle, ECollisionResponse::ECR_Block);
+			Primitive->SetCollisionResponseToChannel(ECC_Pawn, ECollisionResponse::ECR_Block);
+			Primitive->SetCollisionResponseToChannel(ECC_Camera, ECollisionResponse::ECR_Block);
+			Primitive->SetCollisionResponseToChannel(ECC_Visibility, ECollisionResponse::ECR_Block);
+			Primitive->SetCollisionResponseToChannel(ECC_GameTraceChannel1, ECollisionResponse::ECR_Block);
+		}
+	}
+	//else UE_LOG(LogTemp, Warning, TEXT("FUCK THE NULL PoINTER"))
+}
 
