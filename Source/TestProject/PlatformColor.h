@@ -19,6 +19,9 @@ public:
 	//funció que crida el personatge per realitzar els canvis de color
 	void checkColor(FString color);
 
+	//funció que crida la IA per realitzar els canvis de color
+	void IA_checkColor(FString color);
+
 protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;

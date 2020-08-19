@@ -6,6 +6,7 @@
 #include "AIController.h"
 #include "EnemyAIController.generated.h"
 
+
 /**
  * 
  */
@@ -21,4 +22,7 @@ public:
 
 private:
 	APawn* PlayerPawn = nullptr;
+	UPROPERTY(EditAnywhere)
+	class UBehaviorTree* AIBehavior;
+
 };

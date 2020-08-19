@@ -36,13 +36,14 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-private:	
+public:	
 
 	///////////////COLORS////////////////////////
 
 	UMaterialInstanceDynamic* matInstance;
 
 	//Defineixo els colors en els que es pot convertir el personatge
+	
 	UPROPERTY(EditAnywhere)
 	FLinearColor Taronja = FLinearColor(0.89f, 0.30f, 0.06f);
 	UPROPERTY(EditAnywhere)
@@ -87,24 +88,6 @@ private:
 	//Primitive component
 	UPrimitiveComponent* Primitive = nullptr;
 
-	////////////////MOVIMENT///////////////////
-
-
-	//Velocitat de moviment
-	UPROPERTY(EditAnywhere)
-	float MovementSpeed = 1.f;
-
-	//Velocitat de camera
-	UPROPERTY(EditAnywhere)
-	float CameraSpeed = 1.f;
-
-	//Funcions de moviment
-	void MouEndavant(float value);
-	void MiraAmunt(float value);
-	void MiraAmuntRate(float value);
-	void MiraDretaRate(float value);
-	void MouDreta(float value);
-	void MiraDreta(float value);
 
 	//////////////////ARMA//////////////////
 
@@ -117,10 +100,33 @@ private:
 	//Per disparar
 	void Shoot();
 
+
+private:
+	////////////////MOVIMENT///////////////////
+
+
+	//Velocitat de moviment
+	UPROPERTY(EditAnywhere)
+		float MovementSpeed = 1.f;
+
+	//Velocitat de camera
+	UPROPERTY(EditAnywhere)
+		float CameraSpeed = 1.f;
+
+	//Funcions de moviment
+	void MouEndavant(float value);
+	void MiraAmunt(float value);
+	void MiraAmuntRate(float value);
+	void MiraDretaRate(float value);
+	void MouDreta(float value);
+	void MiraDreta(float value);
+
 	////////////////PERSONATGE////////////////
 	UPROPERTY(EditDefaultsOnly)
 		float MaxHealth = 100.f;
 
 	UPROPERTY(VisibleAnywhere)
 		float Health;
+
+
 };

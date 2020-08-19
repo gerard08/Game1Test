@@ -56,9 +56,6 @@ void UPlatformColor::checkColor(FString color)
 		{
 			//canviem el material a transparent
 			myStaticMesh->SetMaterial(0, Trans);
-			//desactivem colisions
-			Primitive->SetCollisionResponseToChannel(ECC_Vehicle, ECollisionResponse::ECR_Ignore);
-			Primitive->SetCollisionResponseToChannel(ECC_Pawn, ECollisionResponse::ECR_Ignore);
 			
 		}
 		//sino
@@ -66,6 +63,27 @@ void UPlatformColor::checkColor(FString color)
 		{
 			//posem el material no transparent
 			myStaticMesh->SetMaterial(0, NonTrans);
+		}
+	}
+	//else UE_LOG(LogTemp, Warning, TEXT("FUCK THE NULL PoINTER"))
+}
+
+void UPlatformColor::IA_checkColor(FString color)
+{
+	//Si tenim mesh
+	if (myStaticMesh)
+	{
+		//Si el color que ens passa el personatge és el mateix que el nostre
+		if (color == myColor)
+		{
+			//desactivem colisions
+			Primitive->SetCollisionResponseToChannel(ECC_Vehicle, ECollisionResponse::ECR_Ignore);
+			Primitive->SetCollisionResponseToChannel(ECC_Pawn, ECollisionResponse::ECR_Ignore);
+
+		}
+		//sino
+		else
+		{
 			//Activem colisions
 			Primitive->SetCollisionResponseToChannel(ECC_Vehicle, ECollisionResponse::ECR_Block);
 			Primitive->SetCollisionResponseToChannel(ECC_Pawn, ECollisionResponse::ECR_Block);
@@ -73,5 +91,4 @@ void UPlatformColor::checkColor(FString color)
 	}
 	//else UE_LOG(LogTemp, Warning, TEXT("FUCK THE NULL PoINTER"))
 }
-
 
