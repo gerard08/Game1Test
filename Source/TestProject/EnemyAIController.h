@@ -25,4 +25,5 @@ private:
 	UPROPERTY(EditAnywhere)
 	class UBehaviorTree* AIBehavior;
 
+
 };

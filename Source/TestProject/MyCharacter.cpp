@@ -178,8 +178,15 @@ void AMyCharacter::CanviaColor(bool IA)
 			GetMesh()->SetMaterial(i, matInstance);
 		}
 
+		Primitive->SetCollisionResponseToChannel(ECC_GameTraceChannel8, ECollisionResponse::ECR_Ignore);
+		Primitive->SetCollisionResponseToChannel(ECC_GameTraceChannel9, ECollisionResponse::ECR_Ignore);
+		Primitive->SetCollisionResponseToChannel(ECC_GameTraceChannel10, ECollisionResponse::ECR_Ignore);
+		Primitive->SetCollisionResponseToChannel(ECC_GameTraceChannel11, ECollisionResponse::ECR_Ignore);
+		Primitive->SetCollisionResponseToChannel(ECC_GameTraceChannel12, ECollisionResponse::ECR_Ignore);
+
 		if (Primitive)
 		{
+			Primitive->SetCollisionResponseToChannel(TradueixColor(), ECollisionResponse::ECR_Block);
 			Primitive->SetCollisionObjectType(TradueixColor());
 			UE_LOG(LogTemp, Warning, TEXT("TOMA"));
 		}
@@ -237,11 +244,11 @@ void AMyCharacter::InicialitzaColor()
 ECollisionChannel AMyCharacter::TradueixColor()
 {
 
-	if (ColorActual == "Verd") return ECC_GameTraceChannel2;
-	if (ColorActual == "Taronja") return ECC_GameTraceChannel3;
-	if (ColorActual == "Turquesa") return ECC_GameTraceChannel4;
-	if (ColorActual == "Rosa") return ECC_GameTraceChannel5;
-	if (ColorActual == "Lila") return ECC_GameTraceChannel6;
+	if (ColorActual == "Verd") return ECC_GameTraceChannel8;
+	if (ColorActual == "Taronja") return ECC_GameTraceChannel9;
+	if (ColorActual == "Turquesa") return ECC_GameTraceChannel10;
+	if (ColorActual == "Rosa") return ECC_GameTraceChannel11;
+	if (ColorActual == "Lila") return ECC_GameTraceChannel12;
 
 	return ECollisionChannel();
 }

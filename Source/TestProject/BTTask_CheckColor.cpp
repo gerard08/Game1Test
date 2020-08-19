@@ -4,6 +4,7 @@
 #include "BTTask_CheckColor.h"
 #include "AIController.h"
 #include "MyCharacter.h"
+#include "EnemyAIController.h"
 
 UBTTask_CheckColor::UBTTask_CheckColor()
 {
@@ -24,12 +25,9 @@ EBTNodeResult::Type UBTTask_CheckColor::ExecuteTask(UBehaviorTreeComponent& Owne
 	AMyCharacter* Character = Cast<AMyCharacter>(cont->GetPawn());
 	
 
-
-	
 	if (!Character)UE_LOG(LogTemp, Warning, TEXT("IA"));
 	
 	APlayerController* pcont = GetWorld()->GetFirstPlayerController();
-	pcont->GetCharacter();
 
 	AMyCharacter* Player = Cast<AMyCharacter>(pcont->GetCharacter());
 	if (!Player)UE_LOG(LogTemp, Warning, TEXT("Player"));
