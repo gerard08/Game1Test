@@ -177,7 +177,7 @@ void AMyCharacter::CanviaColor(bool IA)
 			//Apliquem aquest material creat al nostre mesh
 			GetMesh()->SetMaterial(i, matInstance);
 		}
-		
+
 		if (Primitive)
 		{
 			Primitive->SetCollisionObjectType(TradueixColor());
