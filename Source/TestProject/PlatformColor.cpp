@@ -79,7 +79,11 @@ void UPlatformColor::IA_checkColor(FString color)
 			//desactivem colisions
 			Primitive->SetCollisionResponseToChannel(ECC_Vehicle, ECollisionResponse::ECR_Ignore);
 			Primitive->SetCollisionResponseToChannel(ECC_Pawn, ECollisionResponse::ECR_Ignore);
-
+			//permetem visibilitat
+			Primitive->SetCollisionResponseToChannel(ECC_Camera, ECollisionResponse::ECR_Ignore);
+			Primitive->SetCollisionResponseToChannel(ECC_Visibility, ECollisionResponse::ECR_Ignore);
+			Primitive->SetCollisionResponseToChannel(ECC_GameTraceChannel1, ECollisionResponse::ECR_Ignore);
+			//visibility, camera and bullets
 		}
 		//sino
 		else
@@ -87,6 +91,9 @@ void UPlatformColor::IA_checkColor(FString color)
 			//Activem colisions
 			Primitive->SetCollisionResponseToChannel(ECC_Vehicle, ECollisionResponse::ECR_Block);
 			Primitive->SetCollisionResponseToChannel(ECC_Pawn, ECollisionResponse::ECR_Block);
+			Primitive->SetCollisionResponseToChannel(ECC_Camera, ECollisionResponse::ECR_Block);
+			Primitive->SetCollisionResponseToChannel(ECC_Visibility, ECollisionResponse::ECR_Block);
+			Primitive->SetCollisionResponseToChannel(ECC_GameTraceChannel1, ECollisionResponse::ECR_Block);
 		}
 	}
 	//else UE_LOG(LogTemp, Warning, TEXT("FUCK THE NULL PoINTER"))

@@ -71,13 +71,13 @@ public:
 	int8_t iColorActual = -1;
 
 	//Suma color
-	void ColorMes();
+	void ColorMes(bool IA = false);
 
 	//Resta color
-	void ColorMenys();
+	void ColorMenys(bool IA = false);
 
 	//Funcio que efectua el canvi de color i avisa a les parets d'aquest
-	void CanviaColor();
+	void CanviaColor(bool IA = false);
 
 	//funcio per posar el color inicial
 	void InicialitzaColor();
@@ -87,6 +87,10 @@ public:
 
 	//Primitive component
 	UPrimitiveComponent* Primitive = nullptr;
+
+	void SumaColor();
+
+	void RestaColor();
 
 
 	//////////////////ARMA//////////////////

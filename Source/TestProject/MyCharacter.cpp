@@ -65,10 +65,18 @@ void AMyCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompone
 	PlayerInputComponent->BindAxis(TEXT("MiraDretaRate"), this, &AMyCharacter::MiraDretaRate);
 	PlayerInputComponent->BindAxis(TEXT("MouDreta"), this, &AMyCharacter::MouDreta);
 	PlayerInputComponent->BindAction(TEXT("Salta"), EInputEvent::IE_Pressed, this, &AMyCharacter::Jump);
-	PlayerInputComponent->BindAction(TEXT("ColorMes"), EInputEvent::IE_Pressed, this, &AMyCharacter::ColorMes);
-	PlayerInputComponent->BindAction(TEXT("ColorMenys"), EInputEvent::IE_Pressed, this, &AMyCharacter::ColorMenys);
+	PlayerInputComponent->BindAction(TEXT("ColorMes"), EInputEvent::IE_Pressed, this, &AMyCharacter::SumaColor);
+	PlayerInputComponent->BindAction(TEXT("ColorMenys"), EInputEvent::IE_Pressed, this, &AMyCharacter::RestaColor);
 	PlayerInputComponent->BindAction(TEXT("Dispara"), EInputEvent::IE_Pressed, this, &AMyCharacter::Shoot);
 
+}
+void AMyCharacter::SumaColor()
+{
+	ColorMes();
+}
+void AMyCharacter::RestaColor()
+{
+	ColorMenys();
 }
 
 float AMyCharacter::TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser)
@@ -126,7 +134,7 @@ void AMyCharacter::Shoot()
 	Gun->PullTrigger();
 }
 
-void AMyCharacter::ColorMes()
+void AMyCharacter::ColorMes(bool IA)
 {
 	if (iColorActual < Colors.Num() - 1)
 	{
@@ -137,11 +145,11 @@ void AMyCharacter::ColorMes()
 		iColorActual = 0;
 	}
 
-	CanviaColor();	
+	CanviaColor(IA);	
 
 }
 
-void AMyCharacter::ColorMenys()
+void AMyCharacter::ColorMenys(bool IA)
 {
 	if (iColorActual > 0)
 	{
@@ -151,11 +159,11 @@ void AMyCharacter::ColorMenys()
 	{
 		iColorActual = Colors.Num() - 1;
 	}
-	CanviaColor();
+	CanviaColor(IA);
 
 }
 
-void AMyCharacter::CanviaColor()
+void AMyCharacter::CanviaColor(bool IA)
 {
 	ColorActual = NomColors[iColorActual];
 	if (matInstance)
@@ -178,15 +186,30 @@ void AMyCharacter::CanviaColor()
 		else UE_LOG(LogTemp, Warning, TEXT("NO"));
 
 	}
-
-	for (TObjectIterator<UPlatformColor> Itr; Itr; ++Itr)
+	if (!IA)
 	{
-		//UE_LOG(LogTemp, Warning, TEXT("NAME: %s"), *Itr->GetName());
-
-		if (Itr->IsA(UPlatformColor::StaticClass()))
+		for (TObjectIterator<UPlatformColor> Itr; Itr; ++Itr)
 		{
-			UPlatformColor* actorClass = *Itr;
-			actorClass->checkColor(ColorActual);
+			//UE_LOG(LogTemp, Warning, TEXT("NAME: %s"), *Itr->GetName());
+
+			if (Itr->IsA(UPlatformColor::StaticClass()))
+			{
+				UPlatformColor* actorClass = *Itr;
+				actorClass->checkColor(ColorActual);
+			}
+		}
+	}
+	else
+	{
+		for (TObjectIterator<UPlatformColor> Itr; Itr; ++Itr)
+		{
+			//UE_LOG(LogTemp, Warning, TEXT("NAME: %s"), *Itr->GetName());
+
+			if (Itr->IsA(UPlatformColor::StaticClass()))
+			{
+				UPlatformColor* actorClass = *Itr;
+				actorClass->IA_checkColor(ColorActual);
+			}
 		}
 	}
 	

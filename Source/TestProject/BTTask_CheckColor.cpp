@@ -36,12 +36,12 @@ EBTNodeResult::Type UBTTask_CheckColor::ExecuteTask(UBehaviorTreeComponent& Owne
 
 	if (Character->iColorActual < Player->iColorActual)
 	{
-		Character->ColorMes();
+		Character->ColorMes(true);
 		return EBTNodeResult::Succeeded;
 	}
 	if (Character->iColorActual > Player->iColorActual)
 	{
-		Character->ColorMenys();
+		Character->ColorMenys(true);
 		return EBTNodeResult::Succeeded;
 	}
 	return EBTNodeResult::Succeeded;
