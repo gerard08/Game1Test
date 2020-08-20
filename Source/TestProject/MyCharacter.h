@@ -70,13 +70,14 @@ public:
 	//Index del color que estem fent servir actualment
 	int8_t iColorActual = -1;
 
-	//Suma color
+	//Suma color (hem afegit un bool que ens permet saber si la funció la crida el jugador o la IA)
 	void ColorMes(bool IA = false);
 
-	//Resta color
+	//Resta color (hem afegit un bool que ens permet saber si la funció la crida el jugador o la IA)
 	void ColorMenys(bool IA = false);
 
-	//Funcio que efectua el canvi de color i avisa a les parets d'aquest
+	//Funcio que efectua el canvi de color i avisa a les parets d'aquest (hem afegit un bool que ens 
+	//permet saber si la funció la crida el jugador o la IA)
 	void CanviaColor(bool IA = false);
 
 	//funcio per posar el color inicial

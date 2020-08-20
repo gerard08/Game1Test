@@ -1,19 +1,20 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "BTTask_CheckColor.h"
+#include "BTTask_CheckPlayerColor.h"
 #include "AIController.h"
 #include "MyCharacter.h"
 #include "EnemyAIController.h"
 #include "BehaviorTree/BlackboardComponent.h"
 
-UBTTask_CheckColor::UBTTask_CheckColor()
+UBTTask_CheckPlayerColor::UBTTask_CheckPlayerColor()
 {
-	NodeName = TEXT("Check color");
-	
+
+	NodeName = TEXT("Check player color");
+
 }
 
-EBTNodeResult::Type UBTTask_CheckColor::ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory)
+EBTNodeResult::Type UBTTask_CheckPlayerColor::ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory)
 {
 	Super::ExecuteTask(OwnerComp, NodeMemory);
 
@@ -28,33 +29,27 @@ EBTNodeResult::Type UBTTask_CheckColor::ExecuteTask(UBehaviorTreeComponent& Owne
 	}
 	//Trobem la classe AMyCharacter controlada pel controlador de la IA
 	AMyCharacter* Character = Cast<AMyCharacter>(cont->GetPawn());
-	
+
 	//Agafem el controlador del jugador
 	APlayerController* pcont = GetWorld()->GetFirstPlayerController();
 
 	//Trobem la classe AMyCharacter controlada pel jugador
 	AMyCharacter* Player = Cast<AMyCharacter>(pcont->GetCharacter());
-	
-	//Si l'index del color de la IA és mes petit que el del jugador
-	if (Character->iColorActual < Player->iColorActual)
+
+	//Si IA i Jugador tenen el mateix color
+	if (Character->iColorActual == Player->iColorActual)
 	{
-		//Sumem un color
-		Character->ColorMes(true);
-		
-		//Retornem correcte
-		return EBTNodeResult::Succeeded;
+		//Posem el valor de la pissarra com a true
+		OwnerComp.GetBlackboardComponent()->SetValueAsBool(TEXT("SameColor"), true);
+	}
+	//sino
+	else
+	{
+		//Esborrem el camp i la localitzacio del jugador
+		OwnerComp.GetBlackboardComponent()->ClearValue(TEXT("SameColor"));
+		OwnerComp.GetBlackboardComponent()->ClearValue(TEXT("Playerlocation"));
+
 	}
 
-	//Si l'index del color de la IA és mes gran que el del jugador
-	if (Character->iColorActual > Player->iColorActual)
-	{
-		//Restem un color
-		Character->ColorMenys(true);
-		
-		//Retornem correcte
-		return EBTNodeResult::Succeeded;
-	}
-
-	//En cas que sigui el mateix color retornem error
-	return EBTNodeResult::Failed;
+	return EBTNodeResult::Succeeded;
 }
