@@ -26,18 +26,4 @@ void AEnemyAIController::BeginPlay()
 void AEnemyAIController::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	
-	//Si la IA pot veure directament al jugador
-	if (LineOfSightTo(PlayerPawn))
-	{
-		//Afegim a la pissarra la posicio actualitzada del jugador
-		GetBlackboardComponent()->SetValueAsVector(TEXT("PlayerLocation"), PlayerPawn->GetActorLocation());
-
-		//Si el valor de la pissarra "SameColor" és true
-		if (GetBlackboardComponent()->GetValueAsBool(TEXT("SameColor")) == true)
-		{
-			//Afegim la posicio del jugador a la pissarra
-			GetBlackboardComponent()->SetValueAsVector(TEXT("LastKnownPlayerLocation"), PlayerPawn->GetActorLocation());
-		}
-	}
 }

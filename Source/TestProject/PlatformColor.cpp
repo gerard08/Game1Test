@@ -1,7 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-#include "Components/PrimitiveComponent.h"
 #include "PlatformColor.h"
+#include "Components/PrimitiveComponent.h"
 
 // Sets default values for this component's properties
 UPlatformColor::UPlatformColor()
