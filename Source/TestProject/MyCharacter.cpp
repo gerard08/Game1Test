@@ -241,6 +241,25 @@ void AMyCharacter::InicialitzaColor()
 	}
 }
 
+void AMyCharacter::SetOpacity(bool opacity)
+{
+	//Agafem el material del skeletical mesh que utilitzem
+	UMaterialInterface* Material = GetMesh()->GetMaterial(0);
+	//Creem un material dinamic a partir d'aquest
+	matInstance = GetMesh()->CreateDynamicMaterialInstance(0, Material);
+	if (matInstance)
+	{
+		//Si s'ha creat correctament, agafem el paràmetre _BodyColor i el posem al color blanc
+		matInstance->SetScalarParameterValue("Opacity", opacity);
+
+		for (int i = 0; i < nMaterials; i++)
+		{
+			//Apliquem aquest material creat al nostre mesh
+			GetMesh()->SetMaterial(i, matInstance);
+		}
+	}
+}
+
 ECollisionChannel AMyCharacter::TradueixColor()
 {
 

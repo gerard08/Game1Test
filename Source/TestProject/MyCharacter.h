@@ -93,7 +93,7 @@ public:
 
 	void RestaColor();
 
-
+	void SetOpacity(bool opacity);
 	//////////////////ARMA//////////////////
 
 	UPROPERTY(EditDefaultsOnly)

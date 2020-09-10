@@ -1,31 +1,32 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
-#include "BTTask_CheckPlayerColor.h"
-#include "AIController.h"
-#include "MyCharacter.h"
-#include "EnemyAIController.h"
+#include "BTService_ColorCkeck.h"
 #include "BehaviorTree/BlackboardComponent.h"
+#include "Kismet/GameplayStatics.h"
+#include "GameFramework/Pawn.h"
+#include "MyCharacter.h"
+#include "AIController.h"
 
-UBTTask_CheckPlayerColor::UBTTask_CheckPlayerColor()
+
+UBTService_ColorCkeck::UBTService_ColorCkeck()
 {
-
-	NodeName = TEXT("Check player color");
-
+	NodeName = "Check Player Color";
 }
 
-EBTNodeResult::Type UBTTask_CheckPlayerColor::ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory)
+void UBTService_ColorCkeck::TickNode(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, float DeltaSeconds)
 {
-	Super::ExecuteTask(OwnerComp, NodeMemory);
+	Super::TickNode(OwnerComp, NodeMemory, DeltaSeconds);
 
 	//Agafem el controlador de la IA
 	AAIController* cont = OwnerComp.GetAIOwner();
+
 
 	//Si no es pot
 	if (!cont)
 	{
 		//Retornem error
-		return EBTNodeResult::Failed;
+		return;
 	}
 	//Trobem la classe AMyCharacter controlada pel controlador de la IA
 	AMyCharacter* Character = Cast<AMyCharacter>(cont->GetPawn());
@@ -53,5 +54,5 @@ EBTNodeResult::Type UBTTask_CheckPlayerColor::ExecuteTask(UBehaviorTreeComponent
 
 	}
 
-	return EBTNodeResult::Succeeded;
+
 }
